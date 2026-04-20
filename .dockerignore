@@ -1,0 +1,22 @@
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Notebooks — pas en prod
+notebooks/
+veille/
+
+# Modèles — montés en volume sur le VPS
+models/
+
+# Tests — pas en prod
+tests/
+
+# Config locale
+.env
+.git/
+.github/
+
+# OS
+.DS_Store

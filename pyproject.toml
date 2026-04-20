@@ -1,0 +1,36 @@
+[project]
+name = "neuralzoo"
+version = "0.1.0"
+description = "Classification d'images d'animaux avec CNN — EPITECH MSc Big Data"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[project.optional-dependencies]
+api = [
+    "fastapi",
+    "uvicorn",
+    "torch",
+    "torchvision",
+    "numpy",
+    "pillow",
+]
+front = [
+    "streamlit",
+    "requests",
+    "plotly",
+]
+notebooks = [
+    "ipykernel",
+    "torch",
+    "torchvision",
+    "matplotlib",
+    "scikit-learn",
+    "seaborn",
+    "numpy",
+]
+dev = [
+    "pytest",
+    "ruff",
+    "httpx",
+]
