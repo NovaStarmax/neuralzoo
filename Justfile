@@ -18,7 +18,7 @@ sync-all:
 
 # Dev local
 api:
-    uv run uvicorn api.main:app --reload --port 8000
+    uv run uvicorn api.main:app --reload --host 127.0.0.1 --port 8000
 
 front:
     uv run streamlit run front/app.py

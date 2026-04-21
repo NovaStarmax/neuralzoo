@@ -4,9 +4,8 @@ WORKDIR /app
 
 RUN pip install uv
 
-COPY pyproject.toml .
-COPY uv.lock .
-RUN uv sync --extra front
+COPY pyproject.toml uv.lock ./
+RUN uv sync --extra front --no-install-project
 
 COPY front/ front/
 

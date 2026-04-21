@@ -1,0 +1,17 @@
+import pytest
+from fastapi.testclient import TestClient
+
+from api.main import app
+
+
+@pytest.fixture(scope="session")
+def client():
+    with TestClient(app) as c:
+        yield c
+
+
+@pytest.fixture(scope="session")
+def valid_image_id(client):
+    resp = client.get("/sample", params={"n": 1})
+    assert resp.status_code == 200
+    return resp.json()[0]["id"]

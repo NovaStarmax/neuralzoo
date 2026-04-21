@@ -7,8 +7,9 @@ __pycache__/
 notebooks/
 veille/
 
-# Modèles — montés en volume sur le VPS
+# Données et modèles — montés en volume sur le VPS
 models/
+data/
 
 # Tests — pas en prod
 tests/

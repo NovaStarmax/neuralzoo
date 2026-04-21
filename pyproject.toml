@@ -19,6 +19,7 @@ front = [
     "streamlit",
     "requests",
     "plotly",
+    "pandas",
 ]
 notebooks = [
     "ipykernel",
