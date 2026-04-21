@@ -65,9 +65,11 @@ def plot_history(history, title=""):
 
 
 def export_metrics(
-    history, all_preds, all_labels, class_names, path=None
+    history, all_preds, all_labels, class_names, path=None, exp_dir=None
 ):
-    if path is None:
+    if exp_dir is not None:
+        path = exp_dir / "metrics.json"
+    elif path is None:
         path = PROJECT_ROOT / "models" / "metrics.json"
         
     report = classification_report(

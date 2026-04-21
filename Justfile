@@ -26,6 +26,9 @@ front:
 dev:
     just api & just front
 
+tune experiment *args:
+    uv run python scripts/tune.py --experiment {{experiment}} {{args}}
+
 lint:
     uv run ruff check .
 

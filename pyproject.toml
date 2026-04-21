@@ -18,5 +18,6 @@ notebooks = [
     "seaborn",
     "numpy",
     "tqdm",
+    "pandas",
 ]
 dev = ["pytest", "ruff", "httpx"]

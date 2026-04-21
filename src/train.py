@@ -1,10 +1,23 @@
+import json
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 from tqdm.auto import tqdm
 from src.utils import PROJECT_ROOT
 
-def train_model(model, train_loader, val_loader, epochs=30, lr=1e-3, patience=5, *, checkpoint_name):
+
+def train_model(
+    model,
+    train_loader,
+    val_loader,
+    epochs=30,
+    lr=1e-3,
+    patience=5,
+    weight_decay=0.0,
+    *,
+    checkpoint_name=None,
+    experiment_name=None,
+):
     device = (
         "cuda"
         if torch.cuda.is_available()
@@ -13,10 +26,35 @@ def train_model(model, train_loader, val_loader, epochs=30, lr=1e-3, patience=5,
         else "cpu"
     )
     print(f"Device : {device}")
-    checkpoint_path = PROJECT_ROOT / "models" / checkpoint_name
+    if experiment_name is not None:
+        exp_dir = PROJECT_ROOT / "models" / "experiments" / experiment_name
+        exp_dir.mkdir(parents=True, exist_ok=True)
+        checkpoint_path = exp_dir / "weights.pth"
+        with open(exp_dir / "config.json", "w") as f:
+            json.dump(
+                {
+                    "experiment": experiment_name,
+                    "epochs": epochs,
+                    "lr": lr,
+                    "patience": patience,
+                    "weight_decay": weight_decay,
+                    "scheduler": "ReduceLROnPlateau",
+                },
+                f,
+                indent=2,
+            )
+    else:
+        checkpoint_path = PROJECT_ROOT / "models" / checkpoint_name
     model = model.to(device)
-    optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-    criterion = nn.CrossEntropyLoss()
+    optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer,
+        mode="min",
+        factor=0.5,
+        patience=5,
+        min_lr=1e-6,
+    )
+    criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
 
     history = {"train_loss": [], "val_loss": [], "train_acc": [], "val_acc": []}
     best_val_loss = float("inf")
@@ -60,8 +98,12 @@ def train_model(model, train_loader, val_loader, epochs=30, lr=1e-3, patience=5,
         history["train_acc"].append(ta)
         history["val_acc"].append(va)
 
+        scheduler.step(vl)
+        current_lr = optimizer.param_groups[0]["lr"]
         print(
-            f"Epoch {epoch + 1:02d}/{epochs} — loss: {tl:.4f} — val_loss: {vl:.4f} — val_acc: {va:.4f}"
+            f"Epoch {epoch + 1:02d}/{epochs} — "
+            f"loss: {tl:.4f} — val_loss: {vl:.4f} — "
+            f"val_acc: {va:.4f} — lr: {current_lr:.2e}"
         )
 
         # Early stopping + checkpoint

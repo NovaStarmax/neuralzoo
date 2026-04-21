@@ -1,0 +1,7 @@
+{
+  "experiment": "augmentation_v2",
+  "epochs": 100,
+  "lr": 0.001,
+  "patience": 10,
+  "weight_decay": 0.0
+}
