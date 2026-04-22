@@ -8,6 +8,7 @@ services:
     volumes:
       - ./models:/app/models:ro
       - ./data:/app/data:ro
+    restart: unless-stopped
     networks:
       - neuralzoo-net
     healthcheck:
@@ -27,6 +28,7 @@ services:
     depends_on:
       neuralzoo-api:
         condition: service_healthy
+    restart: unless-stopped
     networks:
       - neuralzoo-net
 
