@@ -4,8 +4,8 @@ import torch.nn.functional as F
 
 CLASSES = ["bird", "cat", "deer", "dog", "frog", "horse"]
 
-_MEAN = torch.tensor([0.5, 0.5, 0.5]).view(3, 1, 1)
-_STD = torch.tensor([0.5, 0.5, 0.5]).view(3, 1, 1)
+_MEAN = torch.tensor([0.485, 0.456, 0.406]).view(3, 1, 1)
+_STD = torch.tensor([0.229, 0.224, 0.225]).view(3, 1, 1)
 
 
 def run_inference(model, image_array: np.ndarray) -> dict:
