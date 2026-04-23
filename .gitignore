@@ -1,18 +1,15 @@
 .venv/
 __pycache__/
 *.pyc
-*.pth
-*.pth.bak
+models/*.pth
 
 .env
 .DS_Store
 
-data/
-models/*.pth
-models/*.json
+data/cifar-10-batches-py/
 
 .ruff_cache/
 
 .pytest_cache/
 
-.ipynb_checkpoints/
+*:Zone.Identifier
