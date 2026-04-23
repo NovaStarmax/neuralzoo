@@ -11,3 +11,5 @@ data/cifar-10-batches-py/
 .ruff_cache/
 
 .pytest_cache/
+
+*:Zone.Identifier
