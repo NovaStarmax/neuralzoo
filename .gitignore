@@ -1,16 +1,18 @@
 .venv/
 __pycache__/
 *.pyc
+*.pth
+*.pth.bak
 
 .env
 .DS_Store
 
-data/cifar-10-batches-py/
+data/
+models/*.pth
+models/*.json
 
 .ruff_cache/
 
 .pytest_cache/
 
-models/experiments/**/*.pth
-
-models/best_resnet.pth
+.ipynb_checkpoints/

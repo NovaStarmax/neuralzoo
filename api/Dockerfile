@@ -4,9 +4,8 @@ WORKDIR /app
 
 RUN pip install uv
 
-COPY pyproject.toml .
-COPY uv.lock .
-RUN uv sync --extra api
+COPY pyproject.toml uv.lock ./
+RUN uv sync --extra api --no-dev --no-install-project
 
 COPY api/ api/
 

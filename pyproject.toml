@@ -7,8 +7,20 @@ requires-python = ">=3.13"
 dependencies = []
 
 [project.optional-dependencies]
-api = ["fastapi", "uvicorn", "torch", "torchvision", "numpy", "pillow"]
-front = ["streamlit", "requests", "plotly"]
+api = [
+    "fastapi",
+    "uvicorn",
+    "torch",
+    "torchvision",
+    "numpy",
+    "pillow",
+]
+front = [
+    "streamlit",
+    "requests",
+    "plotly",
+    "pandas",
+]
 notebooks = [
     "ipykernel",
     "torch",
@@ -17,7 +29,9 @@ notebooks = [
     "scikit-learn",
     "seaborn",
     "numpy",
-    "tqdm",
-    "pandas",
 ]
-dev = ["pytest", "ruff", "httpx"]
+dev = [
+    "pytest",
+    "ruff",
+    "httpx",
+]
